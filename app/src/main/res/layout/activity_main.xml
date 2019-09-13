@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.activities.MainActivity">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.nike.viewmodel.ViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvResultList"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/etSearch"
+        app:layout_constraintTop_toTopOf="parent"
+        app:adapter="@{viewmodel.recyclerViewAdapter}"/>
+
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rvResultList"
+        android:afterTextChanged="@{(editable) ->viewmodel.afterWordTextChanged(editable)}"
+        android:text="@{viewmodel.words}"
+        android:hint="@string/search_for_a_term"
+        android:inputType="text"/>
+
+    <Button
+        android:id="@+id/btnProcessApiCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        android:onClick="@{(v) -> viewmodel.onGetResults(v)}"
+        android:text="@string/search"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
